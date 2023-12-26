@@ -58,7 +58,6 @@ class SocialMediaButton extends StatelessWidget {
                       width: 25.h,
                       height: 25.h,
                     ),
-                    // 15.pw,
                     Text(
                       text,
                       style: TextStyles.btnTextStyle.copyWith(

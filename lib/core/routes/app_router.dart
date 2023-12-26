@@ -28,14 +28,4 @@ class AppRouter {
       (Route<dynamic> route) => false,
     );
   }
-
-  static pushAndRemoveUntilWithAnimation(page) async {
-    await Navigator.pushAndRemoveUntil(
-      navKey.currentContext!,
-      PageRouteBuilder(
-          transitionDuration: const Duration(seconds: 2),
-          pageBuilder: (_, __, ___) => page),
-      (Route<dynamic> route) => false,
-    );
-  }
 }

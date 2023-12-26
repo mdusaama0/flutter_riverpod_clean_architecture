@@ -18,4 +18,7 @@ class AppStrings {
   static String signupDesc =
       "Looks like you don't have an account.\nLets create a new account for";
   static String login = "Log in";
+  static String hello = "Hello!";
+  static String logout = "Logout";
+  static String deleteAccount = "Delete Account";
 }
