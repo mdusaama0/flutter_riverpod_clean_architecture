@@ -64,22 +64,9 @@ class CustomTextField extends StatelessWidget {
                   onPressed: onTapSuffix,
                   icon: Text(!isObscure ? AppStrings.hide : AppStrings.view))
               : null,
-
           border: InputBorder.none,
           contentPadding:
               EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h, bottom: 10.h),
-
-          // enabledBorder: OutlineInputBorder(
-          //   borderSide: BorderSide(
-          //       color: focus ? AppColors.primaryColor : Colors.transparent),
-          //   borderRadius: BorderRadius.circular(10),
-          // ),
-          // focusedBorder: OutlineInputBorder(
-          //   borderSide: BorderSide(
-          //       color: focus ? AppColors.primaryColor : Colors.transparent),
-          //   borderRadius: BorderRadius.circular(10),
-          // ),
-
           labelText: hintText ?? '',
           labelStyle: TextStyles.hintTextStyle,
         ),

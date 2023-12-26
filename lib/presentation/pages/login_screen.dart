@@ -5,19 +5,47 @@ import 'package:hey_flutter_task/core/theme/app_colors.dart';
 import 'package:hey_flutter_task/core/utils/app_extensions.dart';
 import 'package:hey_flutter_task/core/theme/text_styles.dart';
 import 'package:hey_flutter_task/core/utils/app_strings.dart';
+import 'package:hey_flutter_task/core/utils/app_validators.dart';
+import 'package:hey_flutter_task/data/models/user_model.dart';
+import 'package:hey_flutter_task/domain/entities/sign_in_entity.dart';
 import 'package:hey_flutter_task/presentation/pages/base_screen.dart';
 import 'package:hey_flutter_task/presentation/widgets/custom_text_field.dart';
 import 'package:hey_flutter_task/presentation/widgets/primary_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../core/utils/app_prompts.dart';
+import '../providers/auth_provider.dart';
+
 class LoginScreen extends HookConsumerWidget {
-  const LoginScreen({super.key});
+  final UserModel? user;
+  const LoginScreen({super.key, this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isObsecure = useState(true);
+    var provider = ref.watch(authProvider); //auth provider class instance
+    final isObsecure = useState(true); //state variable for show hide password
+    //text editing controller hook to dispose it automatically
     final passwordController = useTextEditingController();
-    return BaseScren(
+
+    //onTap continue handler
+    onTapContiue() {
+      //validating password
+      String? message =
+          AppValidators.validatePassword(passwordController.text.trim());
+      if (message != null) {
+        Prompt.showSnackBar(message);
+        return;
+      }
+
+      //sign in entity of user login detail
+      SignInEntity signInEntity = SignInEntity(
+        email: user!.email,
+        password: passwordController.text.trim(),
+      );
+      provider.signIn(signInEntity);
+    }
+
+    return BaseScreen(
       title: AppStrings.login,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,39 +56,40 @@ class LoginScreen extends HookConsumerWidget {
             children: [
               ClipOval(
                 child: Image.network(
-                  'https://media.istockphoto.com/id/656673020/photo/handsome-in-spectacles.jpg?s=2048x2048&w=is&k=20&c=sFtyaj9yhA-0XQPVDX8lSyKvevIXl0K8L-QHtO2rERo=',
+                  user!.profile,
                   height: 60.h,
                   width: 60.h,
                   fit: BoxFit.cover,
                 ),
               ),
-              15.pw,
+              15.pw, // sizebox extension widget for width
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Jane Dow',
+                    user!.name,
                     style: TextStyles.titleStyle.copyWith(fontSize: 16),
                   ),
-                  Text('jane.doe@gmail.com', style: TextStyles.subTitleStyle),
+                  Text(user!.email, style: TextStyles.subTitleStyle),
                 ],
               ),
             ],
           ),
-          25.ph,
+          25.ph, // sizebox extension widget
           CustomTextField(
             controller: passwordController,
             hintText: AppStrings.password,
             isObscure: isObsecure.value,
             isSuffix: true,
-            onTap: () => isObsecure.value = !isObsecure.value,
+            onTapSuffix: () => isObsecure.value = !isObsecure.value,
           ),
-          15.ph,
+          15.ph, // sizebox extension widget
           PrimaryButton(
-            onTap: () {},
+            onTap: onTapContiue,
+            loader: provider.loader,
             text: AppStrings.continueText,
           ),
-          15.ph,
+          15.ph, // sizebox extension widget
           Align(
             alignment: Alignment.topLeft,
             child: TextButton(

@@ -1,13 +1,41 @@
-class ServerException implements Exception {}
+class ServerException implements Exception {
+  final String message;
 
-class OfflineException implements Exception {}
+  ServerException(this.message);
+}
 
-class WeekPassException implements Exception {}
+class OfflineException implements Exception {
+  final String message;
 
-class ExistedAccountException implements Exception {}
+  OfflineException(this.message);
+}
 
-class NoUserException implements Exception {}
+class WeekPassException implements Exception {
+  final String message;
 
-class WrongPasswordException implements Exception {}
+  WeekPassException(this.message);
+}
 
-class TooManyRequestsException implements Exception {}
+class ExistedAccountException implements Exception {
+  final String message;
+
+  ExistedAccountException(this.message);
+}
+
+class NoUserException implements Exception {
+  final String message;
+
+  NoUserException(this.message);
+}
+
+class WrongPasswordException implements Exception {
+  final String message;
+
+  WrongPasswordException(this.message);
+}
+
+class TooManyRequestsException implements Exception {
+  final String message;
+
+  TooManyRequestsException(this.message);
+}

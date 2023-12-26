@@ -27,7 +27,7 @@ class AppValidators {
 
   static String? validateName(String value) {
     if (value.isEmpty) {
-      return 'Please input some data';
+      return 'Please enter name';
     }
     return null;
   }

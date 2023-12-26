@@ -34,9 +34,7 @@ class PrimaryButton extends StatelessWidget {
           onPressed: enabled ? onTap : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: enabled
-                ? loader
-                    ? Colors.white
-                    : (backgroundColor ?? AppColors.primaryColor)
+                ? (backgroundColor ?? AppColors.primaryColor)
                 : Colors.grey,
             elevation: 0,
           ),

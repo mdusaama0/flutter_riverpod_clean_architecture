@@ -8,11 +8,17 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/text_styles.dart';
 import '../../core/utils/app_assets.dart';
 
-class BaseScren extends StatelessWidget {
+class BaseScreen extends StatelessWidget {
   final String title;
   final Widget child;
+  final bool showPopIcon;
 
-  const BaseScren({super.key, required this.title, required this.child});
+  const BaseScreen({
+    super.key,
+    required this.title,
+    required this.child,
+    this.showPopIcon = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +26,19 @@ class BaseScren extends StatelessWidget {
       backgroundColor: AppColors.bgColor,
       body: Stack(
         children: [
-          Positioned(
-            top: 40.h,
-            left: 20.w,
-            child: IconButton(
-              onPressed: () => AppRouter.back(),
-              icon: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          showPopIcon
+              ? Positioned(
+                  top: 40.h,
+                  left: 20.w,
+                  child: IconButton(
+                    onPressed: () => AppRouter.back(),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : Container(),
           Positioned(
             right: 0,
             child: Image.asset(
@@ -39,7 +47,7 @@ class BaseScren extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 240.h,
+            top: MediaQuery.of(context).viewInsets.bottom != 0 ? 180.h : 240.h,
             bottom: 0,
             left: 40.w,
             right: 0,
@@ -49,7 +57,7 @@ class BaseScren extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 300.h,
+            top: MediaQuery.of(context).viewInsets.bottom != 0 ? 240.h : 300.h,
             left: 0,
             right: 0,
             child: Padding(
